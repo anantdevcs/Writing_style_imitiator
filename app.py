@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask import request, redirect
+from predictor import wsi_magic
 
 app = Flask(__name__)
 it_text = ""
@@ -8,7 +9,8 @@ it_text = ""
 def index():
     if request.method == "POST":
         req = request.form
-        it_text = req['message']
+        it_text = wsi_magic(req['message'])
+        print(it_text)
         return redirect('/result/'+it_text)
 
     return render_template('index.html')
